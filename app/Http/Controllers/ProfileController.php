@@ -25,7 +25,7 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        dd(Auth::user());
-        
+        // dd(Auth::user());
+        return view('profile');
     }
 }

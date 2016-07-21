@@ -35,3 +35,7 @@ Route::get('profile', [
 Route::auth();
 
 Route::get('/home', 'HomeController@index');
+
+Route::resource('admin/books', 'Admin\\BooksController');
+Route::resource('admin/lessons', 'Admin\\LessonsController');
+Route::resource('admin/grades', 'Admin\\GradesController');
