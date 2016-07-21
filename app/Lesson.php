@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Lesson extends Model
 {
+
+
     /**
      * The database table used by the model.
      *
@@ -25,5 +27,7 @@ class Lesson extends Model
      *
      * @var array
      */
-    protected $fillable = ['name'];
+    protected $fillable = ['name','book_id'];
+
+    
 }

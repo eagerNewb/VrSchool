@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\Grade;
 use App\Book;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -31,7 +32,8 @@ class BooksController extends Controller
      */
     public function create()
     {
-        return view('admin.books.create');
+        $grades = Grade::all();
+        return view('admin.books.create',compact('grades'));
     }
 
     /**
@@ -40,11 +42,13 @@ class BooksController extends Controller
      * @return void
      */
     public function store(Request $request)
-    {
-        $this->validate($request, ['name' => 'required', ]);
+    {   
+        $this->validate($request, ['name' => 'required', 'grade' => 'required']);
 
-        Book::create($request->all());
-
+        $book = Book::create($request->all());
+        foreach ($request->grades as $grade) {
+        $book->grades()->attach($grade);
+        }
         Session::flash('flash_message', 'Book added!');
 
         return redirect('admin/books');
@@ -73,9 +77,17 @@ class BooksController extends Controller
      */
     public function edit($id)
     {
-        $book = Book::findOrFail($id);
+        $book = Book::with('grades')->select('id','name')->findOrFail($id);
+        $grades = Grade::select('id','name')->get();
+        $book_grades = [];
+        foreach ($book->grades as $grade) {
+            $book_grades[] = $grade->name;
+        }
+        return view('admin.books.edit', compact('book','grades','book_grades'));
 
-        return view('admin.books.edit', compact('book'));
+
+
+
     }
 
     /**
@@ -87,11 +99,14 @@ class BooksController extends Controller
      */
     public function update($id, Request $request)
     {
-        $this->validate($request, ['name' => 'required', ]);
+        $this->validate($request, ['name' => 'required', 'grade' => 'required']);
 
         $book = Book::findOrFail($id);
+        
         $book->update($request->all());
-
+        foreach ($request->grades as $grade) {
+            $book->grades()->sync($grade);
+        }
         Session::flash('flash_message', 'Book updated!');
 
         return redirect('admin/books');

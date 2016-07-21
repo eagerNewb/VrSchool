@@ -14,6 +14,10 @@ class CreateLessonsTable extends Migration
     {
         Schema::create('lessons', function(Blueprint $table) {
             $table->increments('id');
+            $table->integer('book_id')->unsigned();
+            $table->foreign('book_id')
+              ->references('id')->on('books')
+              ->onDelete('cascade');
             $table->string('name');
             $table->timestamps();
         });

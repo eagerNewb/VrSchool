@@ -26,4 +26,15 @@ class Book extends Model
      * @var array
      */
     protected $fillable = ['name'];
+
+    public function grades()
+    {
+        return $this->belongsToMany(Grade::class);
+    }
+
+
+    public function lessons()
+    {
+        return $this->hasMany(Lesson::class);
+    }
 }
