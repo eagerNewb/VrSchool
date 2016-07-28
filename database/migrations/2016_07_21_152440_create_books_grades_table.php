@@ -10,8 +10,21 @@ class CreateBooksGradesTable extends Migration
      *
      * @return void
      */
-    public function up()
+     public function up()
     {
+        Schema::create('grades', function(Blueprint $table) {
+            $table->increments('id');
+            $table->integer('number');
+            $table->string('name');
+            $table->timestamps();
+        });
+
+        Schema::create('books', function(Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->timestamps();
+        });
+
          Schema::create('book_grade', function (Blueprint $table) {
             $table->integer('book_id')->unsigned();
             $table->integer('grade_id')->unsigned();
@@ -37,6 +50,9 @@ class CreateBooksGradesTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('book_grade');
+        Schema::drop('books');
+        Schema::drop('grades');
+
     }
 }

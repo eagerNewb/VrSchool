@@ -20,7 +20,6 @@ class GradesController extends Controller
     public function index()
     {
         $grades = Grade::paginate(15);
-
         return view('admin.grades.index', compact('grades'));
     }
 
@@ -31,7 +30,7 @@ class GradesController extends Controller
      */
     public function create()
     {
-        return view('admin.grades.create');
+        return view('admin.grades.create', compact('grades'));
     }
 
     /**
@@ -41,7 +40,7 @@ class GradesController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, ['name' => 'required', ]);
+        $this->validate($request, ['name' => 'required', 'number' => 'required' ]);
 
         Grade::create($request->all());
 

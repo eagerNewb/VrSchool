@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\Book;
 use App\Lesson;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -31,7 +32,8 @@ class LessonsController extends Controller
      */
     public function create()
     {
-        return view('admin.lessons.create');
+        $books = Book::all();
+        return view('admin.lessons.create',compact('books'));
     }
 
     /**
@@ -41,7 +43,7 @@ class LessonsController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, ['name' => 'required', ]);
+        $this->validate($request, ['name' => 'required', 'book' => 'required', 'grade'=> 'required']);
 
         Lesson::create($request->all());
 

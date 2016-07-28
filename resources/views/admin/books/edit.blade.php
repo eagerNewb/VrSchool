@@ -18,7 +18,23 @@
                     {!! $errors->first('name', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
-<div class="form-group {{ $errors->has('grades') ? 'has-error' : ''}}">
+
+
+             <div class=" {{ $errors->has('grades') ? 'has-error' : ''}}">
+                
+                @foreach($grades as $grade)
+
+            <div class="form-group">
+                        {!! Form::label('grades', $grade->name, ['class' => 'col-sm-3 control-label']) !!}
+                        <div class="col-sm-6">
+                        {{-- */ if(in_array($grade->name, $book_grades)) { $checked = 'checked="checked"'; } else { $checked = ''; }/* --}}
+                            {!! Form::checkbox('grades[]', $grade->id, $checked) !!}
+                            {!! $errors->first('grade', '<p class="help-block">:message</p>') !!}
+                        </div>
+            </div>
+                @endforeach()
+            </div>
+<!-- <div class="form-group {{ $errors->has('grades') ? 'has-error' : ''}}">
         {!! Form::label('grade', 'Grades: ', ['class' => 'col-sm-3 control-label']) !!}
         <div class="col-sm-6">
             <select class="grades" id="grades" name="grades[]" multiple="multiple">
@@ -28,7 +44,7 @@
                 @endforeach()
             </select>
         </div>
-    </div>
+    </div> -->
 
     <div class="form-group">
         <div class="col-sm-offset-3 col-sm-3">

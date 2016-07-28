@@ -15,16 +15,20 @@
                     {!! $errors->first('name', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
-<div class="form-group {{ $errors->has('grades') ? 'has-error' : ''}}">
-        {!! Form::label('grade', 'Grade: ', ['class' => 'col-sm-3 control-label']) !!}
-        <div class="col-sm-6">
-            <select class="grades form-control" id="grades" name="grades[]" multiple="multiple">
+            <div class=" {{ $errors->has('grades') ? 'has-error' : ''}}">
+                
                 @foreach($grades as $grade)
-                <option value="{{ $grade->name }}">{{ $grade->name }}</option>
+
+            <div class="form-group">
+                        {!! Form::label('grades', $grade->name, ['class' => 'col-sm-3 control-label']) !!}
+                        <div class="col-sm-6">
+                            {!! Form::checkbox('grades[]', $grade->id, false) !!}
+                            {!! $errors->first('grade', '<p class="help-block">:message</p>') !!}
+                        </div>
+            </div>
                 @endforeach()
-            </select>
-        </div>
-    </div>
+            </div>
+
 
     <div class="form-group">
         <div class="col-sm-offset-3 col-sm-3">

@@ -25,11 +25,15 @@ class Grade extends Model
      *
      * @var array
      */
-    protected $fillable = ['name'];
+    protected $fillable = ['name','number'];
 
     public function books()
     {
         return $this->belongsToMany(Book::class);
+    }
+
+    public function lessons(){
+        return $this->hasMany(Lesson::class);
     }
 
 }

@@ -43,11 +43,11 @@ class BooksController extends Controller
      */
     public function store(Request $request)
     {   
-        $this->validate($request, ['name' => 'required', 'grade' => 'required']);
+        $this->validate($request, ['name' => 'required', 'grades' => 'required']);
 
         $book = Book::create($request->all());
         foreach ($request->grades as $grade) {
-        $book->grades()->attach($grade);
+         $book->grades()->attach($grade);
         }
         Session::flash('flash_message', 'Book added!');
 
@@ -99,14 +99,15 @@ class BooksController extends Controller
      */
     public function update($id, Request $request)
     {
-        $this->validate($request, ['name' => 'required', 'grade' => 'required']);
+        $this->validate($request, ['name' => 'required', 'grades' => 'required']);
 
         $book = Book::findOrFail($id);
         
         $book->update($request->all());
-        foreach ($request->grades as $grade) {
-            $book->grades()->sync($grade);
-        }
+        // foreach ($request->grades as $grade) {
+            // dd($grade);
+            $book->grades()->sync($request->grades);
+        // }
         Session::flash('flash_message', 'Book updated!');
 
         return redirect('admin/books');

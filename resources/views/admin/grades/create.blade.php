@@ -8,14 +8,20 @@
 
     {!! Form::open(['url' => '/admin/grades', 'class' => 'form-horizontal']) !!}
 
-                <div class="form-group {{ $errors->has('name') ? 'has-error' : ''}}">
+            <div class="form-group {{ $errors->has('name') ? 'has-error' : ''}}">
                 {!! Form::label('name', 'Name', ['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-6">
                     {!! Form::text('name', null, ['class' => 'form-control', 'required' => 'required']) !!}
                     {!! $errors->first('name', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
-
+            <div class="form-group {{ $errors->has('number') ? 'has-error' : ''}}">
+                {!! Form::label('number', 'Number', ['class' => 'col-sm-3 control-label']) !!}
+                <div class="col-sm-6">
+                    {!! Form::number('number', null, ['class' => 'form-control', 'required' => 'required']) !!}
+                    {!! $errors->first('number', '<p class="help-block">:message</p>') !!}
+                </div>
+            </div>
 
     <div class="form-group">
         <div class="col-sm-offset-3 col-sm-3">

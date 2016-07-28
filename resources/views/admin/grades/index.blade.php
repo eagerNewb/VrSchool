@@ -16,7 +16,7 @@
             @foreach($grades as $item)
                 {{-- */$x++;/* --}}
                 <tr>
-                    <td>{{ $x }}</td>
+                    <td>{{ $item->number }} <!-- $x --></td>
                     <td>{{ $item->name }}</td>
                     <td>
                         <a href="{{ url('/admin/grades/' . $item->id) }}" class="btn btn-success btn-xs" title="View Grade"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"/></a>
